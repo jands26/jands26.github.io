@@ -1,0 +1,314 @@
+:root {
+  --bg-cream: #faf7f2;
+  --bg-dark: #121010;
+  --sage-green: #879883;
+  --sage-dark: #5c6d59;
+  --rose-pink: #e8a598;
+  --rose-soft: #f4d3cd;
+  --crimson-red: #8b2635;
+  --crimson-light: #a83244;
+  --text-main: #2c2625;
+  --text-muted: #726a68;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  background-color: #1a1818;
+  color: var(--text-main);
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient Desk Frame for Desktop Browsers */
+.viewport-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  max-height: 920px;
+  background-color: var(--bg-cream);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 640px) {
+  .viewport-shell {
+    border-radius: 40px;
+    height: 94vh;
+    border: 7px solid #2e2828;
+  }
+}
+
+.font-serif {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Top Progress Navigation Bar */
+.progress-bar-container {
+  position: absolute;
+  top: env(safe-area-inset-top, 16px);
+  left: 12px;
+  right: 12px;
+  display: flex;
+  gap: 5px;
+  z-index: 50;
+  padding-top: 10px;
+}
+
+.progress-segment {
+  height: 3px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+
+.progress-segment-fill {
+  width: 0%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+
+/* Top Action Bar (Time, Badge, Sound Toggle) */
+.top-actions {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 16px) + 24px);
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+}
+
+.chapter-pill {
+  background: rgba(44, 38, 37, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.audio-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(44, 38, 37, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.audio-toggle-btn.playing svg {
+  animation: spin 3.5s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Container for left and right tap areas */
+.tap-zone-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 20; /* Must be above the slides */
+  pointer-events: none; /* Let empty space fall through */
+}
+
+.tap-zone-left {
+  width: 30%;
+  height: 100%;
+  pointer-events: auto; /* Catch taps on the edges */
+  cursor: pointer;
+}
+
+.tap-zone-center {
+  width: 40%;
+  height: 100%;
+}
+
+.tap-zone-right {
+  width: 30%;
+  height: 100%;
+  pointer-events: auto; /* Catch taps on the edges */
+  cursor: pointer;
+}
+
+/* Pause Indicator Banner */
+.pause-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: rgba(20, 16, 16, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  border-radius: 24px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 60;
+}
+
+.pause-indicator.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Slides Deck System */
+.story-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(1.02);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-cream);
+  overflow: hidden;
+}
+
+.story-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  z-index: 10;
+}
+
+/* Content Cards & Overlays */
+.scrim-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(18, 14, 14, 0.4) 65%,
+    rgba(18, 14, 14, 0.85) 100%
+  );
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+/* Floating Polaroid Styles */
+.polaroid-frame {
+  background: #ffffff;
+  padding: 10px 10px 22px 10px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Interactive Quiz Options */
+.quiz-option {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+  padding: 14px 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 55;
+}
+
+.quiz-option.correct {
+  background: #e8f5e9;
+  border-color: var(--sage-green);
+  color: var(--sage-dark);
+  transform: scale(1.02);
+}
+
+.quiz-option.incorrect {
+  background: #ffebee;
+  border-color: var(--crimson-red);
+  color: var(--crimson-red);
+  opacity: 0.7;
+}
+
+/* Floating Heart Sprinkles */
+.heart-float {
+  animation: floatUp 3s ease-in infinite;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.quiz-option,
+.top-actions,
+#startStoryBtn,
+#replayBtn {
+  position: relative;
+  z-index: 30;
+  pointer-events: auto;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-90px) scale(1.2);
+    opacity: 0;
+  }
+}
