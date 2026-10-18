@@ -71,28 +71,53 @@ function showSlide(index) {
     parseInt(activeSlide.getAttribute("data-duration"), 10) || 6000;
   const activeVideo = activeSlide.querySelector("video");
 
-  if (activeVideo && activeVideo.src) {
-    try {
-      activeVideo.currentTime = 0;
-      activeVideo.play().catch(() => {});
-      // If video has known duration, match slide time
-      if (!isNaN(activeVideo.duration) && activeVideo.duration > 1) {
-        slideDuration = Math.max(
-          configuredDuration,
-          activeVideo.duration * 1000,
-        );
+  // Check if video exists and has a source in <source> or src
+  const hasVideoSource =
+    activeVideo &&
+    (activeVideo.src ||
+      (activeVideo.querySelector("source") &&
+        activeVideo.querySelector("source").src));
+
+  if (hasVideoSource) {
+    // Ensure video is muted for mobile autoplay policy compliance
+    activeVideo.muted = true;
+    activeVideo.currentTime = 0;
+
+    // Helper to launch timer once true duration is known
+    const startVideoSlide = () => {
+      if (!isNaN(activeVideo.duration) && activeVideo.duration > 0.5) {
+        // Dynamic duration: video length + 200ms padding
+        slideDuration = Math.round(activeVideo.duration * 1000) + 200;
       } else {
         slideDuration = configuredDuration;
       }
-    } catch (e) {
-      slideDuration = configuredDuration;
+      activeVideo
+        .play()
+        .catch((err) => console.log("Video play deferred:", err));
+      elapsedTimeOnSlide = 0;
+      startSlideTimer();
+    };
+
+    // If metadata (duration) is already loaded:
+    if (activeVideo.readyState >= 1) {
+      startVideoSlide();
+    } else {
+      // Otherwise wait for duration metadata to load before starting timer
+      activeVideo.addEventListener("loadedmetadata", startVideoSlide, {
+        once: true,
+      });
+      // Fallback if network stalls
+      setTimeout(() => {
+        if (!slideTimer && elapsedTimeOnSlide === 0) {
+          startVideoSlide();
+        }
+      }, 800);
     }
   } else {
     slideDuration = configuredDuration;
+    elapsedTimeOnSlide = 0;
+    startSlideTimer();
   }
-
-  elapsedTimeOnSlide = 0;
-  startSlideTimer();
 }
 
 function startSlideTimer() {

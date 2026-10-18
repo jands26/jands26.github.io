@@ -261,14 +261,12 @@
           </div>
         </div>
       </section>
-
-      <!-- ========================================== -->
-      <!-- SLIDE 1: MILESTONE - FULL HERO PHOTO       -->
-      <!-- ========================================== -->
+      <!-- First Date!!!!! -->
+      <!-- Single photo slide -->
       <section
         class="story-slide"
         data-duration="6000"
-        data-chapter="Milestone 1"
+        data-chapter="First date"
       >
         <div
           style="
@@ -279,22 +277,16 @@
             background: #000;
           "
         >
-          <!-- REPLACE: assets/photos/first-date.jpg -->
           <img
-            src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1080&q=80"
-            alt="First Date"
+            src="assets/photos/firstsingle.jpg"
+            alt="First date"
             style="
               width: 100%;
-              height: 100%;
+              height: fit-content;
               object-fit: cover;
               filter: brightness(0.92);
             "
-            onerror="
-              this.src =
-                'https://placehold.co/800x1200/5c6d59/ffffff?text=Milestone+Photo'
-            "
           />
-
           <div class="scrim-overlay" style="position: absolute; inset: 0"></div>
 
           <div
@@ -303,7 +295,8 @@
               bottom: 0;
               left: 0;
               right: 0;
-              padding: 30px 24px env(safe-area-inset-bottom, 30px) 24px;
+              padding: 30px 24px calc(env(safe-area-inset-bottom, 20px) + 2rem)
+                24px;
               color: white;
               z-index: 10;
             "
@@ -318,21 +311,14 @@
                   font-weight: 600;
                 "
               >
-                OCTOBER 14
-              </span>
-              <span
-                class="glass-pill"
-                style="padding: 4px 12px; border-radius: 999px; font-size: 11px"
-              >
-                📍 The First Coffee
+                September 1, 2025
               </span>
             </div>
-
             <h2
               class="font-serif"
               style="font-size: 32px; font-weight: 600; line-height: 1.2"
             >
-              That Very First Date
+              First Date
             </h2>
             <p
               style="
@@ -343,27 +329,458 @@
                 font-weight: 300;
               "
             >
-              I remember being nervous the entire drive over, but the second we
-              started talking, three hours felt like five minutes.
+              The first time we went on a date :)
             </p>
           </div>
         </div>
       </section>
-
-      <!-- ========================================== -->
-      <!-- SLIDE 2: MILESTONE - DUAL POLAROIDS        -->
-      <!-- ========================================== -->
+      <!-- 3 photo slide -->
       <section
         class="story-slide"
         data-duration="6500"
-        data-chapter="Milestone 2"
+        data-chapter="First Date"
       >
         <div
           style="
             position: relative;
             width: 100%;
             height: 100%;
-            padding: 75px 22px 30px 22px;
+            padding: 75px 20px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--bg-cream);
+          "
+        >
+          <div>
+            <h2
+              class="font-serif"
+              style="font-size: 30px; color: var(--text-main); margin-top: 4px"
+            >
+              First Date
+            </h2>
+          </div>
+
+          <!-- 3-Photo Collage Grid -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-template-rows: 150px 150px;
+              gap: 12px;
+              margin: 15px 0;
+            "
+          >
+            <!-- REPLACE: assets/photos/grid-1.jpg -->
+            <div
+              style="
+                grid-column: 1 / 3;
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/first1.jpg"
+                alt="Pretty princess"
+                style="width: 100%; height: 100%; object-fit: contain"
+                onerror="
+                  this.src =
+                    'https://placehold.co/600x300/F4D3CD/8B2635?text=Photo+Grid+Top'
+                "
+              />
+            </div>
+            <!-- REPLACE: assets/photos/grid-2.jpg -->
+            <div
+              style="
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/first2.jpg"
+                alt="Pretty princesss"
+                style="width: 100%; height: 100%; object-fit: cover"
+                onerror="
+                  this.src =
+                    'https://placehold.co/300x300/879883/ffffff?text=Photo+Bottom+Left'
+                "
+              />
+            </div>
+            <!-- REPLACE: assets/photos/grid-3.jpg -->
+            <div
+              style="
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/first3.jpg"
+                alt="Pretty princess"
+                style="width: 100%; height: 100%; object-fit: cover"
+                onerror="
+                  this.src =
+                    'https://placehold.co/300x300/E8A598/ffffff?text=Photo+Bottom+Right'
+                "
+              />
+            </div>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border-radius: 16px;
+              padding: 14px 18px;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            "
+          >
+            <p
+              style="
+                font-size: 13px;
+                color: var(--text-muted);
+                line-height: 1.4;
+              "
+            >
+              Honestly was feeling very nervous but I'm happy with how it went
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Aspire trip -->
+      <!-- Single cover -->
+      <section
+        class="story-slide"
+        data-duration="6000"
+        data-chapter="ASPIRE Trip"
+      >
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+          "
+        >
+          <img
+            src="assets/photos/aspire/aspiresingle.jpg"
+            alt="cover photo"
+            style="
+              width: 100%;
+              height: fit-content;
+              object-fit: cover;
+              filter: brightness(0.92);
+            "
+          />
+          <div class="scrim-overlay" style="position: absolute; inset: 0"></div>
+
+          <div
+            style="
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              padding: 30px 24px calc(env(safe-area-inset-bottom, 20px) + 2rem)
+                24px;
+              color: white;
+              z-index: 10;
+            "
+          >
+            <div style="display: flex; gap: 8px; margin-bottom: 10px">
+              <span
+                class="glass-pill"
+                style="
+                  padding: 4px 12px;
+                  border-radius: 999px;
+                  font-size: 11px;
+                  font-weight: 600;
+                "
+              >
+                September 20
+              </span>
+              <span
+                class="glass-pill"
+                style="padding: 4px 12px; border-radius: 999px; font-size: 11px"
+              >
+                📍 Mountain View
+              </span>
+            </div>
+            <h2
+              class="font-serif"
+              style="font-size: 32px; font-weight: 600; line-height: 1.2"
+            >
+              ASPIRE Trip
+            </h2>
+            <p
+              style="
+                font-size: 14px;
+                opacity: 0.9;
+                margin-top: 8px;
+                line-height: 1.5;
+                font-weight: 300;
+              "
+            >
+              Googleplex and Computer Museum
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- 4 image slide -->
+      <section
+        class="story-slide"
+        data-duration="7000"
+        data-chapter="ASPIRE Trip"
+      >
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 75px 20px calc(env(safe-area-inset-bottom, 20px) + 2rem)
+              20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--bg-cream);
+          "
+        >
+          <!-- Header -->
+          <div>
+            <h2
+              class="font-serif"
+              style="font-size: 30px; color: var(--text-main); margin-top: 4px"
+            >
+              Computer Museum
+            </h2>
+          </div>
+
+          <!-- 2x2 Image Grid -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-template-rows: 145px 145px;
+              gap: 10px;
+              margin: 12px 0;
+            "
+          >
+            <!-- Image 1 (Top Left) -->
+            <div
+              style="
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                background: #eee;
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire1.jpg"
+                alt="Moment 1"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+
+            <!-- Image 2 (Top Right) -->
+            <div
+              style="
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                background: #eee;
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire2.jpg"
+                alt="Moment 2"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+
+            <!-- Image 3 (Bottom Left) -->
+            <div
+              style="
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                background: #eee;
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire3.jpg"
+                alt="Moment 3"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+
+            <!-- Image 4 (Bottom Right) -->
+            <div
+              style="
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                background: #eee;
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire4.jpg"
+                alt="Moment 4"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+          </div>
+
+          <!-- Caption Card -->
+          <div
+            style="
+              background: white;
+              border-radius: 16px;
+              padding: 14px 18px;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+              border: 1px solid rgba(232, 165, 152, 0.3);
+            "
+          >
+            <p
+              style="
+                font-size: 13px;
+                color: var(--text-main);
+                line-height: 1.45;
+                margin: 0;
+              "
+            >
+              Lots of crazy photos at the computer museum
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- 3 photo slide -->
+      <section
+        class="story-slide"
+        data-duration="6500"
+        data-chapter="ASPIRE Trip"
+      >
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 75px 20px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--bg-cream);
+          "
+        >
+          <div>
+            <h2
+              class="font-serif"
+              style="font-size: 30px; color: var(--text-main); margin-top: 4px"
+            >
+              Google Plex
+            </h2>
+          </div>
+
+          <!-- 3-Photo Collage Grid -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-template-rows: 150px 150px;
+              gap: 12px;
+              margin: 15px 0;
+            "
+          >
+            <!-- REPLACE: assets/photos/grid-1.jpg -->
+            <div
+              style="
+                grid-column: 1 / 3;
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire5.jpg"
+                alt="Valentine Flowers"
+                style="width: 100%; height: 100%; object-fit: cover"
+                onerror="
+                  this.src =
+                    'https://placehold.co/600x300/F4D3CD/8B2635?text=Photo+Grid+Top'
+                "
+              />
+            </div>
+            <!-- REPLACE: assets/photos/grid-2.jpg -->
+            <div
+              style="
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire6.jpg"
+                alt="Candle Dinner"
+                style="width: 100%; height: 100%; object-fit: cover"
+                onerror="
+                  this.src =
+                    'https://placehold.co/300x300/879883/ffffff?text=Photo+Bottom+Left'
+                "
+              />
+            </div>
+            <!-- REPLACE: assets/photos/grid-3.jpg -->
+            <div
+              style="
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+              "
+            >
+              <img
+                src="assets/photos/aspire/aspire7.jpg"
+                alt="Holding Hands"
+                style="width: 100%; height: 100%; object-fit: cover"
+                onerror="
+                  this.src =
+                    'https://placehold.co/300x300/E8A598/ffffff?text=Photo+Bottom+Right'
+                "
+              />
+            </div>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border-radius: 16px;
+              padding: 14px 18px;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            "
+          >
+            <p
+              style="
+                font-size: 13px;
+                color: var(--text-muted);
+                line-height: 1.4;
+              "
+            >
+              My pretty princess :)
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- 2 photo slide -->
+      <section
+        class="story-slide"
+        data-duration="6500"
+        data-chapter="ASPIRE Trip"
+      >
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 75px 22px calc(env(safe-area-inset-bottom, 20px) + 2rem)
+              22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -371,26 +788,15 @@
           "
         >
           <div>
-            <span
-              style="
-                color: var(--sage-dark);
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-              "
-            >
-              NOVEMBER &bull; ROAD TRIP
-            </span>
             <h2
               class="font-serif"
               style="font-size: 30px; color: var(--text-main); margin-top: 4px"
             >
-              Weekend Escapes
+              ASPIRE Trip
             </h2>
           </div>
 
-          <!-- Overlapping Scrapbook Photo Pair -->
+          <!-- Polaroids Container -->
           <div
             style="
               position: relative;
@@ -400,7 +806,7 @@
               justify-content: center;
             "
           >
-            <!-- Photo 1: REPLACE assets/photos/roadtrip-1.jpg -->
+            <!-- Photo 1 -->
             <div
               class="polaroid-frame"
               style="
@@ -413,17 +819,13 @@
               "
             >
               <img
-                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80"
-                alt="Scenic View"
+                src="assets/photos/aspire/aspire8.jpg"
+                alt="Memory 1"
                 style="
                   width: 100%;
                   height: 170px;
                   object-fit: cover;
                   border-radius: 8px;
-                "
-                onerror="
-                  this.src =
-                    'https://placehold.co/400x300/879883/ffffff?text=Photo+1'
                 "
               />
               <div
@@ -435,11 +837,11 @@
                   font-style: italic;
                 "
               >
-                Car playlist on repeat
+                Us two taking a photo together
               </div>
             </div>
 
-            <!-- Photo 2: REPLACE assets/photos/roadtrip-2.jpg -->
+            <!-- Photo 2 -->
             <div
               class="polaroid-frame"
               style="
@@ -452,17 +854,13 @@
               "
             >
               <img
-                src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=600&q=80"
-                alt="Sunset View"
+                src="assets/photos/aspire/aspire9.jpg"
+                alt="Memory 2"
                 style="
                   width: 100%;
                   height: 160px;
                   object-fit: cover;
                   border-radius: 8px;
-                "
-                onerror="
-                  this.src =
-                    'https://placehold.co/400x300/E8A598/ffffff?text=Photo+2'
                 "
               />
               <div
@@ -474,12 +872,12 @@
                   font-style: italic;
                 "
               >
-                Golden hour views
+                Names printed out of old computer
               </div>
             </div>
           </div>
 
-          <!-- Milestone Note Card -->
+          <!-- Bottom Note -->
           <div
             style="
               background: rgba(255, 255, 255, 0.9);
@@ -496,20 +894,16 @@
                 color: var(--text-main);
               "
             >
-              Getting lost on scenic backroads and finding that tiny coffee shop
-              by accident. Still one of my favorite memories with you.
+              I will always remember the fun we had during this trip
             </p>
           </div>
         </div>
       </section>
-
-      <!-- ========================================== -->
-      <!-- SLIDE 3: MILESTONE - VIDEO FOCUS           -->
-      <!-- ========================================== -->
+      <!-- Video slide -->
       <section
         class="story-slide"
         data-duration="8000"
-        data-chapter="Milestone 3"
+        data-chapter="Milestone 7"
         data-has-video="true"
       >
         <div
@@ -521,22 +915,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 75px 20px 30px 20px;
+            padding: 75px 20px calc(env(safe-area-inset-bottom, 20px) + 2rem)
+              20px;
           "
         >
-          <!-- Ambient Backdrop glow -->
-          <div
-            style="
-              position: absolute;
-              inset: 0;
-              background: radial-gradient(
-                circle at center,
-                rgba(168, 50, 68, 0.25) 0%,
-                #0e0d0d 80%
-              );
-            "
-          ></div>
-
           <div style="position: relative; z-index: 10">
             <span
               style="
@@ -547,17 +929,16 @@
                 text-transform: uppercase;
               "
             >
-              DECEMBER &bull; LIVE MOMENT
+              MONTH • VIDEO
             </span>
             <h2
               class="font-serif"
               style="font-size: 28px; color: white; margin-top: 4px"
             >
-              The Time You Couldn't Stop Laughing
+              Video Title
             </h2>
           </div>
 
-          <!-- Responsive Centered Video Window -->
           <div
             style="
               position: relative;
@@ -580,36 +961,26 @@
                 background: #000;
               "
             >
-              <!-- REPLACE: assets/videos/laughing-clip.mp4 -->
-              <!-- If no video file exists locally, the video poster acts as a fallback image -->
               <video
                 class="story-video"
                 playsinline
                 muted
-                loop
+                preload="metadata"
                 style="width: 100%; height: 100%; object-fit: cover"
-                poster="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80"
               >
-                <source src="" type="video/mp4" />
+                <source src="assets/videos/aspire.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
 
           <div style="position: relative; z-index: 10; text-align: center">
             <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75)">
-              📹
-              <em
-                >(Place your clip in assets/videos/ to auto-play this
-                moment)</em
-              >
+              Uh oh ai bad
             </p>
           </div>
         </div>
       </section>
-
-      <!-- ========================================== -->
-      <!-- SLIDE 4: MILESTONE - MULTI-PHOTO GRID      -->
-      <!-- ========================================== -->
+      <!-- 3 photo slide template FAST FORWARD SEARCH -->
       <section
         class="story-slide"
         data-duration="6500"
