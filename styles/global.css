@@ -471,3 +471,36 @@ body {
     transform: scale(1.18);
   }
 }
+/* Preloader Dismiss Button */
+.preloader-dismiss-btn {
+  margin-top: 24px;
+  background: var(--crimson-red);
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(139, 38, 53, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    visibility 0.4s;
+  pointer-events: none;
+}
+
+/* Revealed state (after 5s or when loaded) */
+.preloader-dismiss-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.preloader-dismiss-btn:active {
+  transform: scale(0.96);
+}

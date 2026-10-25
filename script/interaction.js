@@ -13,6 +13,8 @@ const preloaderScreen = document.getElementById("preloaderScreen");
 const preloaderBarFill = document.getElementById("preloaderBarFill");
 const preloaderPercent = document.getElementById("preloaderPercent");
 let isPreloading = true; // Prevents slides and timers from advancing during preload
+const dismissPreloadBtn = document.getElementById("dismissPreloadBtn");
+let preloadDismissed = false;
 
 let currentSlideIndex = 0;
 let isPaused = false;
@@ -413,7 +415,22 @@ window.handleQuizAnswer = function (
   }, 4000);
 };
 
-function preloadAllAssets(onComplete) {
+function dismissPreloader() {
+  if (preloadDismissed) return;
+  preloadDismissed = true;
+  isPreloading = false;
+
+  if (preloaderScreen) {
+    preloaderScreen.classList.add("fade-out");
+    setTimeout(() => {
+      preloaderScreen.style.display = "none";
+      // Resume playback and launch Slide 0
+      resumePlayback();
+    }, 600);
+  }
+}
+
+function preloadAllAssets() {
   // 1. Collect all unique image URLs
   const imgElements = Array.from(document.querySelectorAll(".story-slide img"));
   const imageUrls = Array.from(
@@ -424,7 +441,7 @@ function preloadAllAssets(onComplete) {
     ),
   );
 
-  // 2. Collect all video elements and ensure they do not play during preloading
+  // 2. Collect all video elements and prevent background playback
   const videoElements = Array.from(
     document.querySelectorAll(".story-slide video"),
   );
@@ -437,21 +454,18 @@ function preloadAllAssets(onComplete) {
   const totalItems = imageUrls.length + videoElements.length;
   let loadedItems = 0;
 
-  if (totalItems === 0) {
-    onComplete();
-    return;
-  }
-
   const updateProgress = () => {
     loadedItems++;
     const percent = Math.min(100, Math.round((loadedItems / totalItems) * 100));
     if (preloaderBarFill) preloaderBarFill.style.width = `${percent}%`;
     if (preloaderPercent) preloaderPercent.textContent = `${percent}%`;
 
+    // When 100% loaded, update button label and show it immediately
     if (loadedItems >= totalItems) {
-      setTimeout(() => {
-        onComplete();
-      }, 400); // Brief pause at 100% so it feels smooth
+      if (dismissPreloadBtn) {
+        dismissPreloadBtn.textContent = "Start Our Story →";
+        dismissPreloadBtn.classList.add("visible");
+      }
     }
   };
 
@@ -459,11 +473,11 @@ function preloadAllAssets(onComplete) {
   imageUrls.forEach((url) => {
     const img = new Image();
     img.onload = updateProgress;
-    img.onerror = updateProgress; // Advance even if an image fails so user isn't stuck
+    img.onerror = updateProgress;
     img.src = url;
   });
 
-  // Preload Videos (wait until ready to play through or first frame loaded)
+  // Preload Videos
   videoElements.forEach((video) => {
     if (video.readyState >= 3) {
       updateProgress();
@@ -482,29 +496,27 @@ function preloadAllAssets(onComplete) {
       video.load();
     }
   });
-
-  // Fallback safety timeout: if slow mobile connection stalls on a large video, dismiss after 12s
-  setTimeout(() => {
-    if (loadedItems < totalItems) {
-      onComplete();
-    }
-  }, 12000);
 }
 
 window.onload = function () {
-  // Prepare slide 0 visuals without starting timers or videos
   showSlide(0);
   pausePlayback(false);
 
-  preloadAllAssets(() => {
-    isPreloading = false;
-    if (preloaderScreen) {
-      preloaderScreen.classList.add("fade-out");
-      setTimeout(() => {
-        preloaderScreen.style.display = "none";
-        // Unpause and launch slide 0 timer cleanly
-        resumePlayback();
-      }, 600);
+  // Start preloading assets in background
+  preloadAllAssets();
+
+  // Attach click listener to dismiss button
+  if (dismissPreloadBtn) {
+    dismissPreloadBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dismissPreloader();
+    });
+  }
+
+  // After 5 seconds, ensure the dismiss button appears regardless of loading progress
+  setTimeout(() => {
+    if (!preloadDismissed && dismissPreloadBtn) {
+      dismissPreloadBtn.classList.add("visible");
     }
-  });
+  }, 5000);
 };
