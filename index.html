@@ -24,6 +24,21 @@
   </head>
   <body>
     <div class="viewport-shell" id="appShell">
+      <!-- ========================================== -->
+      <!-- PRELOADER OVERLAY SCREEN                   -->
+      <!-- ========================================== -->
+      <div class="preloader-screen" id="preloaderScreen">
+        <div class="preloader-content">
+          <div class="preloader-heart">❤️</div>
+          <h2 class="font-serif preloader-title">Loading Our Memories</h2>
+          <p class="preloader-subtext">Gathering our photos & videos...</p>
+
+          <div class="preloader-bar-track">
+            <div class="preloader-bar-fill" id="preloaderBarFill"></div>
+          </div>
+          <span class="preloader-percentage" id="preloaderPercent">0%</span>
+        </div>
+      </div>
       <!-- Progress Bars (Instagram Stories dynamic header) -->
       <div class="progress-bar-container" id="progressBarContainer">
         <!-- Injected via JavaScript based on total slide count -->

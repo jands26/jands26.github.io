@@ -9,6 +9,10 @@ const audioToggleBtn = document.getElementById("audioToggleBtn");
 const bgAudio = document.getElementById("bgAudio");
 const startStoryBtn = document.getElementById("startStoryBtn");
 const replayBtn = document.getElementById("replayBtn");
+const preloaderScreen = document.getElementById("preloaderScreen");
+const preloaderBarFill = document.getElementById("preloaderBarFill");
+const preloaderPercent = document.getElementById("preloaderPercent");
+let isPreloading = true; // Prevents slides and timers from advancing during preload
 
 let currentSlideIndex = 0;
 let isPaused = false;
@@ -121,6 +125,7 @@ function showSlide(index) {
 }
 
 function startSlideTimer() {
+  if (isPreloading) return;
   slideStartTime = Date.now() - elapsedTimeOnSlide;
   const targetFill = document.getElementById(`fill-${currentSlideIndex}`);
 
@@ -408,6 +413,98 @@ window.handleQuizAnswer = function (
   }, 4000);
 };
 
+function preloadAllAssets(onComplete) {
+  // 1. Collect all unique image URLs
+  const imgElements = Array.from(document.querySelectorAll(".story-slide img"));
+  const imageUrls = Array.from(
+    new Set(
+      imgElements
+        .map((img) => img.getAttribute("src"))
+        .filter((src) => src && src.trim() !== ""),
+    ),
+  );
+
+  // 2. Collect all video elements and ensure they do not play during preloading
+  const videoElements = Array.from(
+    document.querySelectorAll(".story-slide video"),
+  );
+  videoElements.forEach((vid) => {
+    vid.preload = "auto";
+    vid.pause();
+    vid.currentTime = 0;
+  });
+
+  const totalItems = imageUrls.length + videoElements.length;
+  let loadedItems = 0;
+
+  if (totalItems === 0) {
+    onComplete();
+    return;
+  }
+
+  const updateProgress = () => {
+    loadedItems++;
+    const percent = Math.min(100, Math.round((loadedItems / totalItems) * 100));
+    if (preloaderBarFill) preloaderBarFill.style.width = `${percent}%`;
+    if (preloaderPercent) preloaderPercent.textContent = `${percent}%`;
+
+    if (loadedItems >= totalItems) {
+      setTimeout(() => {
+        onComplete();
+      }, 400); // Brief pause at 100% so it feels smooth
+    }
+  };
+
+  // Preload Images
+  imageUrls.forEach((url) => {
+    const img = new Image();
+    img.onload = updateProgress;
+    img.onerror = updateProgress; // Advance even if an image fails so user isn't stuck
+    img.src = url;
+  });
+
+  // Preload Videos (wait until ready to play through or first frame loaded)
+  videoElements.forEach((video) => {
+    if (video.readyState >= 3) {
+      updateProgress();
+    } else {
+      const onVideoReady = () => {
+        video.removeEventListener("canplaythrough", onVideoReady);
+        video.removeEventListener("loadeddata", onVideoReady);
+        video.removeEventListener("error", onVideoReady);
+        video.pause();
+        updateProgress();
+      };
+
+      video.addEventListener("canplaythrough", onVideoReady, { once: true });
+      video.addEventListener("loadeddata", onVideoReady, { once: true });
+      video.addEventListener("error", onVideoReady, { once: true });
+      video.load();
+    }
+  });
+
+  // Fallback safety timeout: if slow mobile connection stalls on a large video, dismiss after 12s
+  setTimeout(() => {
+    if (loadedItems < totalItems) {
+      onComplete();
+    }
+  }, 12000);
+}
+
 window.onload = function () {
+  // Prepare slide 0 visuals without starting timers or videos
   showSlide(0);
+  pausePlayback(false);
+
+  preloadAllAssets(() => {
+    isPreloading = false;
+    if (preloaderScreen) {
+      preloaderScreen.classList.add("fade-out");
+      setTimeout(() => {
+        preloaderScreen.style.display = "none";
+        // Unpause and launch slide 0 timer cleanly
+        resumePlayback();
+      }, 600);
+    }
+  });
 };
