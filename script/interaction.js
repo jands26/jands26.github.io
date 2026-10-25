@@ -24,6 +24,7 @@ let slideStartTime = 0;
 let elapsedTimeOnSlide = 0;
 let slideDuration = 6000;
 let isMusicPlaying = false;
+let wasMusicPlayingBeforeVideo = false;
 let audioContext = null; // Lightweight Web Audio synthesizer fallback
 
 // Create progress segments matching slide count
@@ -42,25 +43,31 @@ function showSlide(index) {
   if (index < 0) index = 0;
   if (index >= slides.length) index = slides.length - 1;
 
-  // Clear existing active slide & timers
+  // Clear existing timers
   clearTimeout(slideTimer);
   clearInterval(progressInterval);
 
-  // Stop previous video if exists
+  // Stop, mute, and reset the previous video if navigating away from one
   const prevVideo = slides[currentSlideIndex].querySelector("video");
   if (prevVideo) {
     try {
       prevVideo.pause();
+      prevVideo.muted = true;
+      prevVideo.currentTime = 0;
+      prevVideo.onended = null;
     } catch (e) {}
   }
 
+  // Update slide visibility and progress bar fills
   slides.forEach((slide, idx) => {
     slide.classList.remove("active");
     const fill = document.getElementById(`fill-${idx}`);
-    if (idx < index) {
-      fill.style.width = "100%";
-    } else if (idx > index) {
-      fill.style.width = "0%";
+    if (fill) {
+      if (idx < index) {
+        fill.style.width = "100%";
+      } else if (idx > index) {
+        fill.style.width = "0%";
+      }
     }
   });
 
@@ -69,15 +76,17 @@ function showSlide(index) {
   activeSlide.classList.add("active");
 
   // Update Top Chapter Pill
-  chapterBadge.textContent =
-    activeSlide.getAttribute("data-chapter") || "Our Story";
+  if (chapterBadge) {
+    chapterBadge.textContent =
+      activeSlide.getAttribute("data-chapter") || "Our Story";
+  }
 
-  // Determine duration (allow videos to drive length if longer)
+  // Determine duration
+  let rawDuration = parseInt(activeSlide.getAttribute("data-duration"), 10);
   const configuredDuration =
-    parseInt(activeSlide.getAttribute("data-duration"), 10) || 6000;
-  const activeVideo = activeSlide.querySelector("video");
+    !isNaN(rawDuration) && rawDuration > 500 ? rawDuration : 6000;
 
-  // Check if video exists and has a source in <source> or src
+  const activeVideo = activeSlide.querySelector("video");
   const hasVideoSource =
     activeVideo &&
     (activeVideo.src ||
@@ -85,34 +94,50 @@ function showSlide(index) {
         activeVideo.querySelector("source").src));
 
   if (hasVideoSource) {
-    // Ensure video is muted for mobile autoplay policy compliance
-    activeVideo.muted = true;
+    // 1. Pause background music while the video plays
+    if (isMusicPlaying) {
+      wasMusicPlayingBeforeVideo = true;
+      pauseAudio();
+    }
+
+    // 2. Unmute the video so clip audio plays
+    activeVideo.muted = false;
     activeVideo.currentTime = 0;
 
-    // Helper to launch timer once true duration is known
+    // Advance story immediately when the video finishes
+    activeVideo.onended = () => {
+      if (!isPaused && !isPreloading) {
+        nextSlide();
+      }
+    };
+
     const startVideoSlide = () => {
       if (!isNaN(activeVideo.duration) && activeVideo.duration > 0.5) {
-        // Dynamic duration: video length + 200ms padding
         slideDuration = Math.round(activeVideo.duration * 1000) + 200;
       } else {
         slideDuration = configuredDuration;
       }
-      activeVideo
-        .play()
-        .catch((err) => console.log("Video play deferred:", err));
+
+      // Play with sound; fallback to muted if mobile policy blocks unmuted autoplay
+      activeVideo.play().catch((err) => {
+        console.warn(
+          "Unmuted autoplay restricted, falling back to muted:",
+          err,
+        );
+        activeVideo.muted = true;
+        activeVideo.play().catch(() => {});
+      });
+
       elapsedTimeOnSlide = 0;
       startSlideTimer();
     };
 
-    // If metadata (duration) is already loaded:
     if (activeVideo.readyState >= 1) {
       startVideoSlide();
     } else {
-      // Otherwise wait for duration metadata to load before starting timer
       activeVideo.addEventListener("loadedmetadata", startVideoSlide, {
         once: true,
       });
-      // Fallback if network stalls
       setTimeout(() => {
         if (!slideTimer && elapsedTimeOnSlide === 0) {
           startVideoSlide();
@@ -120,6 +145,12 @@ function showSlide(index) {
       }, 800);
     }
   } else {
+    // 3. On photo slides: resume background music if it was paused for a video
+    if (wasMusicPlayingBeforeVideo && !isMusicPlaying) {
+      playAudio();
+      wasMusicPlayingBeforeVideo = false;
+    }
+
     slideDuration = configuredDuration;
     elapsedTimeOnSlide = 0;
     startSlideTimer();
@@ -290,14 +321,25 @@ function toggleAudio() {
 }
 
 function playAudio() {
-  if (bgAudio.src && bgAudio.src !== window.location.href) {
+  const audioSrc =
+    bgAudio.src ||
+    bgAudio.currentSrc ||
+    (bgAudio.querySelector("source") && bgAudio.querySelector("source").src);
+
+  if (audioSrc && audioSrc !== window.location.href) {
+    // Ensure bgAudio has the src bound directly
+    if (!bgAudio.src) {
+      bgAudio.src = audioSrc;
+    }
+
     bgAudio
       .play()
       .then(() => {
         isMusicPlaying = true;
-        audioToggleBtn.classList.add("playing");
+        if (audioToggleBtn) audioToggleBtn.classList.add("playing");
       })
-      .catch(() => {
+      .catch((err) => {
+        console.warn("Audio playback failed or blocked by browser:", err);
         playAmbientSynthChime();
       });
   } else {
@@ -307,9 +349,11 @@ function playAudio() {
 }
 
 function pauseAudio() {
-  if (bgAudio.src) bgAudio.pause();
+  try {
+    bgAudio.pause();
+  } catch (e) {}
   isMusicPlaying = false;
-  audioToggleBtn.classList.remove("playing");
+  if (audioToggleBtn) audioToggleBtn.classList.remove("playing");
 }
 
 // Gentle synthesizer chime for when local audio file hasn't been set yet
@@ -359,11 +403,15 @@ audioToggleBtn.addEventListener("click", (e) => {
   toggleAudio();
 });
 
-startStoryBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  playAudio();
-  nextSlide();
-});
+if (startStoryBtn) {
+  startStoryBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!isMusicPlaying) {
+      playAudio();
+    }
+    nextSlide();
+  });
+}
 
 replayBtn.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -420,6 +468,8 @@ function dismissPreloader() {
   preloadDismissed = true;
   isPreloading = false;
 
+  playAudio();
+
   if (preloaderScreen) {
     preloaderScreen.classList.add("fade-out");
     setTimeout(() => {
@@ -448,6 +498,7 @@ function preloadAllAssets() {
   videoElements.forEach((vid) => {
     vid.preload = "auto";
     vid.pause();
+    vid.muted = true;
     vid.currentTime = 0;
   });
 
