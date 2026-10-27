@@ -2086,9 +2086,6 @@
         </div>
       </section>
       <!-- 4 photo slide -->
-      <!-- ========================================== -->
-      <!-- SLIDE: MILESTONE - 4-IMAGE BALANCED GRID   -->
-      <!-- ========================================== -->
       <section
         class="story-slide"
         data-duration="7000"
@@ -2282,6 +2279,138 @@
             <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75)">
               Shocked baba. Honestly I'm happy with how you reacted :)
             </p>
+          </div>
+        </div>
+      </section>
+      <!-- ========================================== -->
+      <!-- QUIZ 1 - photos in gallary -->
+      <!-- ========================================== -->
+      <section class="story-slide" data-duration="12000" data-chapter="Quiz 1">
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 75px 22px 30px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(
+              160deg,
+              #fdece9 0%,
+              #faf7f2 50%,
+              #e7efe6 100%
+            );
+          "
+        >
+          <div>
+            <span
+              style="
+                color: var(--crimson-red);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              "
+            >
+              Quiz break &bull; 1 of 3
+            </span>
+            <h2
+              class="font-serif"
+              style="
+                font-size: 32px;
+                color: var(--text-main);
+                margin-top: 4px;
+                line-height: 1.2;
+              "
+            >
+              How many photos of you are in my gallary?
+            </h2>
+            <p
+              style="font-size: 13px; color: var(--text-muted); margin-top: 6px"
+            >
+              I added up each one individually lol
+            </p>
+          </div>
+
+          <!-- Quiz Interactive Choices -->
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              margin: 10px 0;
+            "
+          >
+            <div
+              class="quiz-option"
+              data-correct="true"
+              onclick="
+                handleQuizAnswer(
+                  this,
+                  true,
+                  'quizFeedback1',
+                  'Congrats! You are correct!',
+                )
+              "
+            >
+              <span>A) 555</span>
+              <span class="quiz-badge"></span>
+            </div>
+
+            <!-- Mark this correct option with data-correct="true" -->
+            <div
+              class="quiz-option"
+              data-correct="false"
+              onclick="
+                handleQuizAnswer(
+                  this,
+                  false,
+                  'quizFeedback1',
+                  'A little too low lol',
+                )
+              "
+            >
+              <span>B) 420</span>
+              <span class="quiz-badge"></span>
+            </div>
+
+            <div
+              class="quiz-option"
+              data-correct="false"
+              onclick="
+                handleQuizAnswer(
+                  this,
+                  false,
+                  'quizFeedback1',
+                  'Close but not quite!',
+                )
+              "
+            >
+              <span>C) 447</span>
+              <span class="quiz-badge"></span>
+            </div>
+          </div>
+
+          <!-- Feedback & Reveal Box -->
+          <div
+            id="quizFeedback1"
+            style="
+              min-height: 75px;
+              background: white;
+              border-radius: 18px;
+              padding: 14px 18px;
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              font-size: 13.5px;
+              color: var(--text-main);
+              font-weight: 500;
+            "
+          >
+            <span>Take a guess above to see the actual total!</span>
           </div>
         </div>
       </section>
@@ -4675,6 +4804,126 @@
           </div>
         </div>
       </section>
+      <!-- ========================================== -->
+      <!-- QUIZ 2 - Longest call      -->
+      <!-- ========================================== -->
+      <section class="story-slide" data-duration="12000" data-chapter="Quiz 2">
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 75px 22px 30px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(160deg, #eaefe9 0%, #faf7f2 100%);
+          "
+        >
+          <div>
+            <span
+              style="
+                color: var(--sage-dark);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              "
+            >
+              Quiz Break &bull; 2 OF 3
+            </span>
+            <h2
+              class="font-serif"
+              style="
+                font-size: 32px;
+                color: var(--sage-dark);
+                margin-top: 4px;
+                line-height: 1.2;
+              "
+            >
+              Our longest phone call lasted:
+            </h2>
+            <p
+              style="font-size: 13px; color: var(--text-muted); margin-top: 6px"
+            >
+              Only phone call, not facetime
+            </p>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              margin: 10px 0;
+            "
+          >
+            <div
+              class="quiz-option"
+              data-correct="false"
+              onclick="
+                handleQuizAnswer(this, false, 'quizFeedback3', 'A bit loww')
+              "
+            >
+              <span>A) 37 min 31 sec</span>
+              <span class="quiz-badge"></span>
+            </div>
+
+            <!-- Mark this correct option with data-correct="true" -->
+            <div
+              class="quiz-option"
+              data-correct="true"
+              onclick="
+                handleQuizAnswer(
+                  this,
+                  true,
+                  'quizFeedback3',
+                  'Correct! We called for 43 minutes on August 31, 2025',
+                )
+              "
+            >
+              <span>B) 43 min 11 sec</span>
+              <span class="quiz-badge"></span>
+            </div>
+
+            <div
+              class="quiz-option"
+              data-correct="false"
+              onclick="
+                handleQuizAnswer(
+                  this,
+                  false,
+                  'quizFeedback3',
+                  'This was our second longest lol, September 23',
+                )
+              "
+            >
+              <span>C) 41 min 16 sec</span>
+              <span class="quiz-badge"></span>
+            </div>
+          </div>
+
+          <div
+            id="quizFeedback3"
+            style="
+              min-height: 75px;
+              background: white;
+              border-radius: 18px;
+              padding: 14px 18px;
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              font-size: 13.5px;
+              color: var(--text-main);
+              font-weight: 500;
+            "
+          >
+            <span>Which phone call was our longest?</span>
+          </div>
+        </div>
+      </section>
       <!-- Misc photos -->
       <!-- 3 photo slide -->
       <section
@@ -5524,152 +5773,10 @@
           </div>
         </div>
       </section>
-      <!-- ===============FAST FORWARD=========================== -->
-      <!-- SLIDE 6: QUIZ 1 - MR. T'S VISITS (WRAPPED) -->
       <!-- ========================================== -->
-      <section
-        class="story-slide"
-        data-duration="12000"
-        data-chapter="Our Wrapped: Quiz 1"
-      >
-        <div
-          style="
-            position: relative;
-            width: 100%;
-            height: 100%;
-            padding: 75px 22px 30px 22px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(
-              160deg,
-              #fdece9 0%,
-              #faf7f2 50%,
-              #e7efe6 100%
-            );
-          "
-        >
-          <div>
-            <span
-              style="
-                color: var(--crimson-red);
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-              "
-            >
-              WRAPPED TRIVIA &bull; 1 OF 3
-            </span>
-            <h2
-              class="font-serif"
-              style="
-                font-size: 32px;
-                color: var(--text-main);
-                margin-top: 4px;
-                line-height: 1.2;
-              "
-            >
-              How many times did we visit Mr. T's? 🍩
-            </h2>
-            <p
-              style="font-size: 13px; color: var(--text-muted); margin-top: 6px"
-            >
-              Pulled straight from our Google Maps timeline data! Tap your
-              guess:
-            </p>
-          </div>
-
-          <!-- Quiz Interactive Choices -->
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 12px;
-              margin: 10px 0;
-            "
-          >
-            <div
-              class="quiz-option"
-              data-correct="false"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  false,
-                  'quizFeedback1',
-                  'Close, but we love pastries way more than that! 😂',
-                )
-              "
-            >
-              <span>A) 12 visits</span>
-              <span class="quiz-badge"></span>
-            </div>
-
-            <!-- Mark this correct option with data-correct="true" -->
-            <div
-              class="quiz-option"
-              data-correct="true"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  true,
-                  'quizFeedback1',
-                  'Ding ding! 34 times! That is basically once every 10 days 🍩❤️',
-                )
-              "
-            >
-              <span>B) 34 visits</span>
-              <span class="quiz-badge"></span>
-            </div>
-
-            <div
-              class="quiz-option"
-              data-correct="false"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  false,
-                  'quizFeedback1',
-                  'Almost! But we paced ourselves just a little bit more.',
-                )
-              "
-            >
-              <span>C) 52 visits</span>
-              <span class="quiz-badge"></span>
-            </div>
-          </div>
-
-          <!-- Feedback & Reveal Box -->
-          <div
-            id="quizFeedback1"
-            style="
-              min-height: 75px;
-              background: white;
-              border-radius: 18px;
-              padding: 14px 18px;
-              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-align: center;
-              font-size: 13.5px;
-              color: var(--text-main);
-              font-weight: 500;
-            "
-          >
-            <span>Take a guess above to see the actual total!</span>
-          </div>
-        </div>
-      </section>
-
+      <!-- QUIZ 3 - "I LOVE YOU" TEXTS       -->
       <!-- ========================================== -->
-      <!-- SLIDE 7: QUIZ 2 - "I LOVE YOU" TEXTS       -->
-      <!-- ========================================== -->
-      <section
-        class="story-slide"
-        data-duration="12000"
-        data-chapter="Our Wrapped: Quiz 2"
-      >
+      <section class="story-slide" data-duration="12000" data-chapter="Quiz 3">
         <div
           style="
             position: relative;
@@ -5692,7 +5799,7 @@
                 text-transform: uppercase;
               "
             >
-              WRAPPED TRIVIA &bull; 2 OF 3
+              Quiz Break &bull; 3 of 3
             </span>
             <h2
               class="font-serif"
@@ -5708,8 +5815,7 @@
             <p
               style="font-size: 13px; color: var(--text-muted); margin-top: 6px"
             >
-              Goodnight texts, spontaneous afternoon reminders, and cute
-              stickers counted.
+              Only through text messages
             </p>
           </div>
 
@@ -5734,7 +5840,7 @@
                 )
               "
             >
-              <span>A) 640 times</span>
+              <span>A) 4267 times</span>
               <span class="quiz-badge"></span>
             </div>
 
@@ -5746,11 +5852,11 @@
                   this,
                   false,
                   'quizFeedback2',
-                  'Getting warmer! Keep tapping...',
+                  'A little too high lol',
                 )
               "
             >
-              <span>B) 1,120 times</span>
+              <span>B) 7241 times</span>
               <span class="quiz-badge"></span>
             </div>
 
@@ -5763,11 +5869,11 @@
                   this,
                   true,
                   'quizFeedback2',
-                  'Over 2,180 times! And I meant every single one of them 💕',
+                  'Correct!! I loves you 😊',
                 )
               "
             >
-              <span>C) 2,180+ times</span>
+              <span>C) 6226 times</span>
               <span class="quiz-badge"></span>
             </div>
           </div>
@@ -5794,139 +5900,8 @@
           </div>
         </div>
       </section>
-
       <!-- ========================================== -->
-      <!-- SLIDE 8: QUIZ 3 - SCREEN TIME / CALLS      -->
-      <!-- ========================================== -->
-      <section
-        class="story-slide"
-        data-duration="12000"
-        data-chapter="Our Wrapped: Quiz 3"
-      >
-        <div
-          style="
-            position: relative;
-            width: 100%;
-            height: 100%;
-            padding: 75px 22px 30px 22px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(160deg, #eaefe9 0%, #faf7f2 100%);
-          "
-        >
-          <div>
-            <span
-              style="
-                color: var(--sage-dark);
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-              "
-            >
-              WRAPPED TRIVIA &bull; 3 OF 3
-            </span>
-            <h2
-              class="font-serif"
-              style="
-                font-size: 32px;
-                color: var(--sage-dark);
-                margin-top: 4px;
-                line-height: 1.2;
-              "
-            >
-              Our longest FaceTime call lasted:
-            </h2>
-            <p
-              style="font-size: 13px; color: var(--text-muted); margin-top: 6px"
-            >
-              Remember that night we both said "you hang up first" for an hour?
-            </p>
-          </div>
-
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 12px;
-              margin: 10px 0;
-            "
-          >
-            <div
-              class="quiz-option"
-              data-correct="false"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  false,
-                  'quizFeedback3',
-                  'That was just our warm-up call!',
-                )
-              "
-            >
-              <span>A) 2 Hours 15 Mins</span>
-              <span class="quiz-badge"></span>
-            </div>
-
-            <!-- Mark this correct option with data-correct="true" -->
-            <div
-              class="quiz-option"
-              data-correct="true"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  true,
-                  'quizFeedback3',
-                  '5 Hours 48 Minutes! Woke up with our phones burning hot 😴📱',
-                )
-              "
-            >
-              <span>B) 5 Hours 48 Mins</span>
-              <span class="quiz-badge"></span>
-            </div>
-
-            <div
-              class="quiz-option"
-              data-correct="false"
-              onclick="
-                handleQuizAnswer(
-                  this,
-                  false,
-                  'quizFeedback3',
-                  'Not quite that long, but we definitely came close!',
-                )
-              "
-            >
-              <span>C) 8 Hours 30 Mins</span>
-              <span class="quiz-badge"></span>
-            </div>
-          </div>
-
-          <div
-            id="quizFeedback3"
-            style="
-              min-height: 75px;
-              background: white;
-              border-radius: 18px;
-              padding: 14px 18px;
-              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-align: center;
-              font-size: 13.5px;
-              color: var(--text-main);
-              font-weight: 500;
-            "
-          >
-            <span>Which marathon call takes the crown?</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SLIDE 9: "BY THE NUMBERS" SUMMARY INFOGRAPHIC -->
+      <!-- "BY THE NUMBERS" SUMMARY INFOGRAPHIC -->
       <!-- ========================================== -->
       <section
         class="story-slide"
@@ -5983,7 +5958,7 @@
                 border-bottom: 3px solid var(--rose-pink);
               "
             >
-              <div style="font-size: 24px">🚗</div>
+              <div style="font-size: 24px">☀️</div>
               <div
                 class="font-serif"
                 style="
@@ -5993,7 +5968,7 @@
                   margin-top: 6px;
                 "
               >
-                1,420
+                515
               </div>
               <div
                 style="
@@ -6002,7 +5977,7 @@
                   margin-top: 2px;
                 "
               >
-                Miles Driven Together
+                Good morning messages
               </div>
             </div>
 
@@ -6025,7 +6000,7 @@
                   margin-top: 6px;
                 "
               >
-                84
+                89
               </div>
               <div
                 style="
@@ -6057,7 +6032,7 @@
                   margin-top: 6px;
                 "
               >
-                1,842
+                161
               </div>
               <div
                 style="
@@ -6066,7 +6041,7 @@
                   margin-top: 2px;
                 "
               >
-                Photos & Videos Taken
+                Photos & Videos Taken Together
               </div>
             </div>
 
@@ -6079,7 +6054,7 @@
                 border-bottom: 3px solid var(--rose-pink);
               "
             >
-              <div style="font-size: 24px">✨</div>
+              <div style="font-size: 24px">❤️</div>
               <div
                 class="font-serif"
                 style="
@@ -6220,9 +6195,9 @@
                 font-style: italic;
               "
             >
-              "Thank you for the easiest smiles, the best car rides, and the
-              most comforting presence. This past year has been my favorite one
-              yet, and I can't wait for everything we have ahead of us."
+              Thank you for giving me the best year of my life. You've really
+              made my life so much better, and I look forward to spending the
+              rest of my life with you :) I love you so much ❤️
             </p>
             <div
               style="
